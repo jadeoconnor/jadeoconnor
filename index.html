@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>interactive visualisation</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+<style>
+    body{
+        background-color: rgb(42, 165, 159);
+    }
+    p{text-align: center;
+    }
+</style>
+</head>
+<body>
+    <div class="chartBox">
+        <canvas id="myChart"></canvas>
+    </div>
+    <div class="buttonBox">
+        <p>Survey year:
+            <input type="radio" name="year" value="2019"
+            onclick="changeChart([0.10, 0.11,0.25,0.04, 0.12, 0.15, 0.11,
+            0.15, 0.01, 0.14], 'rgba(255,0,0,1)')"/>2019
+            <input type="radio" name="year" value="2020" 
+            onclick="changeChart([0.20, 0.31,0.75,0.54, 0.73, 0.29, 0.23,
+            0.15, 0.01, 0.14], 'rgba(0,255,0,1)')"/>2020
+            <input type="radio" name="year" value="2021" checked="checked"
+            onclick="changeChart([1.0, 0.99,0.25,0.44, 0.22, 0.15, 0.11,
+            0.15, 0.74, 0.61], 'rgba(0,0,255,1)')"/>2021
+            </p>
+    </div>
+
+    <script>
+        var xValues = [- "insomnia", "anhedonia", "unmotivated", "hopeless", "fearful", "agitated", "sad", "nervous", "worthless", "somatic"];
+        
+        
+        const ctx = document.getElementById("myChart");
+const myChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+        labels: xValues,
+        datasets: [{
+        fill: false,
+        lineTension: 0,
+        backgroundColor: "rgba(0,0,255,1.0)",
+        borderColor: "rgba(0,0,255,0.1)",
+        data: [0.13,0.8,0.8,0.15,0.32,0.64,0.10,0.11,0.14,0.34,0.66]
+        }]
+        },
+        options: {
+        legend: {display: false},
+        scales: {
+        yAxes: [{ticks: {min: 0.00, max:1}}],
+        }
+        }
+        });
+        function changeChart(data, color) {
+            myChart.data.datasets[0].data=data;
+            myChart.data.datasets[0].backgroundColor=color;
+            myChart.update()
+        }
+        </script>
+</body>
+</html>
